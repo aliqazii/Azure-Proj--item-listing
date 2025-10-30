@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:5.0
+    container_name: items-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: itemsdb
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - items-network
+
+  # Items App
+  app:
+    build: .
+    container_name: items-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGODB_URI=mongodb://mongodb:27017/itemsdb
+    depends_on:
+      - mongodb
+    networks:
+      - items-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  items-network:
+    driver: bridge

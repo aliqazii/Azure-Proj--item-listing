@@ -1,0 +1,25 @@
+{
+  "name": "items-listing-app",
+  "version": "1.0.0",
+  "description": "A full-stack items listing application for cloud deployment pipeline",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:memory": "node server-inmemory.js",
+    "dev": "nodemon server.js",
+    "dev:memory": "nodemon server-inmemory.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["nodejs", "express", "mongodb", "docker", "kubernetes"],
+  "author": "Cloud Pipeline Demo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
