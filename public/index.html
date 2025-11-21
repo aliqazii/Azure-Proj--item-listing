@@ -3,55 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Items Listing App</title>
+    <title>Items Marketplace</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
     <div class="container">
-        <header>
-            <h1>📦 Items Listing App</h1>
-            <p>Cloud Computing Deployment Pipeline Demo</p>
-        </header>
+        <!-- Top Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="logo-icon">📦</div>
+                <div class="brand-text">
+                    <h1>Items Marketplace</h1>
+                    <span class="tagline">Powered by Microsoft Azure Cloud</span>
+                </div>
+            </div>
+            <div class="nav-search">
+                <div class="search-box">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <input id="searchInput" type="search" placeholder="Search items, categories, descriptions..." />
+                </div>
+                <button id="clearSearch" class="btn-secondary">Clear</button>
+            </div>
+        </nav>
 
-        <main>
-            <!-- Add Item Form -->
-            <section class="add-item-section">
-                <h2>Add New Item</h2>
-                <form id="itemForm">
-                    <div class="form-group">
-                        <label for="name">Item Name:</label>
-                        <input type="text" id="name" name="name" required>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar - Add Item Form -->
+            <aside class="sidebar">
+                <div class="card add-item-card">
+                    <div class="card-header">
+                        <h2>Add New Item</h2>
+                        <p class="subtitle">List your item in seconds</p>
                     </div>
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Price ($):</label>
-                        <input type="number" id="price" name="price" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <select id="category" name="category" required>
-                            <option value="">Select Category</option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Clothing">Clothing</option>
-                            <option value="Books">Books</option>
-                            <option value="Home">Home & Garden</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <button type="submit">Add Item</button>
-                </form>
-            </section>
+                    <form id="itemForm" class="item-form">
+                        <div class="form-group">
+                            <label for="name">Item Name</label>
+                            <input type="text" id="name" name="name" placeholder="e.g. Wireless Bluetooth Mouse" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" rows="3" placeholder="Describe your item..." required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <div class="input-prefix">
+                                    <span class="prefix">$</span>
+                                    <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" name="category" required>
+                                    <option value="">Select...</option>
+                                    <option value="Electronics">📱 Electronics</option>
+                                    <option value="Clothing">👕 Clothing</option>
+                                    <option value="Books">📚 Books</option>
+                                    <option value="Home">🏡 Home & Garden</option>
+                                    <option value="Sports">⚽ Sports</option>
+                                    <option value="Other">🔖 Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <span class="btn-text">Add Item</span>
+                            <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </aside>
 
-            <!-- Items List -->
+            <!-- Main - Items List -->
             <section class="items-section">
-                <h2>Items List</h2>
-                <div class="items-controls">
-                    <button id="refreshBtn">🔄 Refresh</button>
-                    <span id="itemCount">Loading...</span>
+                <div class="section-header">
+                    <div class="header-content">
+                        <h2>All Items</h2>
+                        <span id="itemCount" class="item-counter">Loading...</span>
+                    </div>
+                    <button id="refreshBtn" class="btn-icon-only">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M17.5 7.5v-5h-5M2.5 12.5v5h5M17.07 4.93A8.5 8.5 0 1 0 18.5 10M2 10a8.5 8.5 0 0 1 15.07-5.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Refresh
+                    </button>
                 </div>
                 <div id="itemsList" class="items-grid">
                     <!-- Items will be loaded here -->
@@ -59,8 +107,10 @@
             </section>
         </main>
 
-        <footer>
-            <p>Deployed via Docker → Azure AKS → GitHub Pipeline</p>
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🚀 Deployed via Docker → Azure AKS → GitHub Actions Pipeline</p>
+            <p class="footer-meta">Cloud Computing Demo Project • 2025</p>
         </footer>
     </div>
 
